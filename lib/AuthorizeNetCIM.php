@@ -180,11 +180,15 @@ class AuthorizeNetCIM extends AuthorizeNetRequest
      * @param int $customerProfileId
      *
      * @return AuthorizeNetCIM_Response
+     * added unmaskExpirationDate https://github.com/AuthorizeNet/sdk-php/commit/ed1aecc95b288738990a3e4ed94f1a0751b2d017
      */
-    public function getCustomerProfile($customerProfileId)
+    public function getCustomerProfile($customerProfileId, $unmaskExpirationDate = false)
     {
         $this->_constructXml("getCustomerProfileRequest");
         $this->_xml->addChild("customerProfileId", $customerProfileId);
+        if ( $unmaskExpirationDate ) {
+            $this->_xml->addChild("unmaskExpirationDate", true);
+        }
         return $this->_sendRequest();
     }
     
@@ -195,12 +199,16 @@ class AuthorizeNetCIM extends AuthorizeNetRequest
      * @param int $customerPaymentProfileId
      *
      * @return AuthorizeNetCIM_Response
+     * added unmaskExpirationDate https://github.com/AuthorizeNet/sdk-php/commit/8e43670692a6c6b0e9a5c0034791fb12d7143940
      */
-    public function getCustomerPaymentProfile($customerProfileId, $customerPaymentProfileId)
+    public function getCustomerPaymentProfile($customerProfileId, $customerPaymentProfileId, $unmaskExpirationDate = false)
     {
         $this->_constructXml("getCustomerPaymentProfileRequest");
         $this->_xml->addChild("customerProfileId", $customerProfileId);
         $this->_xml->addChild("customerPaymentProfileId", $customerPaymentProfileId);
+        if ( $unmaskExpirationDate ) {
+            $this->_xml->addChild("unmaskExpirationDate", true);
+        }
         return $this->_sendRequest();
     }
     
